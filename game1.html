@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprunki - 音乐创作游戏</title>
+    <meta name="description" content="Sprunki是一款结合音乐和节奏的创意游戏，让玩家通过独特的模组和关卡设计来享受音乐创作的乐趣。">
+    <meta name="keywords"
+        content="Sprunki, Incredibox, Fan-Made Mod, Music-Mixing, Sound Loops, Musical Compositions, Drag-and-drop Interface">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF69B4',
+                        secondary: '#4169E1',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-r from-pink-100 via-white to-blue-100">
+    <section class="relative top-0 left-0 right-0 z-[1000] bg-white/50 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">首页</a>
+                    <a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">游戏特色</a>
+                    <a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">社区</a>
+                    <a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">下载</a>
+                </nav>
+
+                <!-- Language Selector -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" @click.away="open = false" class="flex items-center space-x-2 px-4 py-2 rounded-full bg-white/80 shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600">
+                            <path d="m5 8 6 6"/>
+                            <path d="m4 14 6-6 2-3"/>
+                            <path d="M2 5h12"/>
+                            <path d="M7 2h1"/>
+                            <path d="m22 22-5-10-5 10"/>
+                            <path d="M14 18h6"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">简体中文</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 transform transition-transform duration-200" :class="{ 'rotate-180': open }">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute right-0 mt-2 w-48 rounded-xl bg-white shadow-lg border border-gray-100 py-2 z-[1001]">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            简体中文
+                        </a>
+                        <a href="game1-en.html" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            English
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            日本語
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            한국어
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section -->
+    <section class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-6">
+                    <h1
+                        class="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                    <p class="text-xl md:text-lg text-gray-500 font-medium">
+                        用音乐和节奏打造你的创意世界，让每一段旋律都成为独特的游戏体验
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">探索电子音乐到复古打击乐，让多样化音效激发你的创作灵感</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">在创意关卡中尽情发挥，与全球玩家分享你的独特音乐作品</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">涂鸦艺术风格与动感音效完美融合，带来震撼视听体验</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">通过直观的拖拽操作，让每个人都能轻松创作音乐</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-1">
+                        <a href="#" id="hero-play-button"
+                            class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            开始游戏
+                        </a>
+                    </div>
+                </div>
+                <!-- Right Video -->
+                <div class="relative aspect-video rounded-2xl overflow-hidden shadow-xl">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 z-0"></div>
+                    <iframe class="absolute inset-[2px] w-[calc(100%-4px)] h-[calc(100%-4px)] rounded-2xl z-10"
+                        src="https://www.youtube.com/embed/5mpwEPR1ggg?si=oueqlPUqXqTZSF3y"
+                        title="Sprunki Gameplay Video" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- 动态音乐体验 -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-pink-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        动态音乐体验
+                    </h3>
+                    <p class="text-sm text-gray-400">多样化音乐曲目，从 Hip-hop 到电子音，感受强烈的节奏律动</p>
+                </div>
+
+                <!-- 个性角色 -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-purple-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        个性角色</h3>
+                    <p class="text-sm text-gray-400">独特角色设计，如 Oren 和 Funbot，展现丰富的个性魅力</p>
+                </div>
+
+                <!-- 创意视觉 -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-blue-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        创意视觉</h3>
+                    <p class="text-sm text-gray-400">鲜艳色彩与涂鸦艺术风格，带来震撼的视觉体验</p>
+                </div>
+
+                <!-- 自定义关卡 -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-purple-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        自定义关卡</h3>
+                    <p class="text-sm text-gray-400">创建专属音乐关卡，让创意自由绽放</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How to Play Section -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/90 to-white/60">
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                如何玩 Sprunki 游戏？
+            </h2>
+
+            <!-- Video Container -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div
+                    class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                    <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                        <iframe class="w-full h-full"
+                            src="https://www.youtube.com/embed/5fzgKPCi0b4?si=VzHIegNLizU03Bnx"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions Grid -->
+            <div class="grid md:grid-cols-3 gap-6 w-full mx-auto">
+                <!-- 开始游戏 -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-pink-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-pink-400 via-pink-500 to-rose-500 text-white text-sm">1</span>
+                        <span
+                            class="bg-gradient-to-r from-pink-400 via-pink-500 to-rose-500 bg-clip-text text-transparent">开始你的音乐之旅</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            点击"立即玩Sprunki"启动游戏
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            选择你喜欢的模式（经典、迪斯科热潮、太空漫游）
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            创作你的第一个节拍
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 创作技巧 -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-purple-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 text-white text-sm">2</span>
+                        <span
+                            class="bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">创作技巧</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            选择并拖动角色到舞台上
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            尝试不同组合，找到完美混音
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            使用混音器调整音量和效果
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 高级玩法 -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-blue-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-500 text-white text-sm">3</span>
+                        <span
+                            class="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-500 bg-clip-text text-transparent">探索更多可能</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            解锁奖励模式和隐藏组合
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            录制并分享你的创作
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            与社区互动，获取灵感
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Spunky Hot Games Section -->
+    <section class="py-8 pt-4 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/90 to-white/60">
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl md:text-4xl font-bold h-12 mb-8 text-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                Spunky Hot 游戏合集
+            </h2>
+
+            <!-- Game Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- Game Card Template (Repeat for each game) -->
+                <!-- Sprunki Retake -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-retake.jpg" alt="Sprunki Retake"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Retake
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                一款创新的音乐游戏，融合重新构想的游戏玩法与全新音效组合，并呈现令人耳目一新的角色设计。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spunky Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki.webp" alt="Spunky Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                经典的音乐创作体验，结合原创音效库和标志性角色，带来独特的游戏乐趣。
+                            </p>
+                        </div>
+                    </div>
+                </div><!-- Sprunki Infected -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-infected.png" alt="Sprunki Infected"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Infected
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                独特的感染主题游戏体验，配合黑暗氛围和独特音效，营造出令人难忘的游戏世界。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colorbox Mustard -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/colorbox-mustard.png" alt="Colorbox Mustard"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Colorbox Mustard
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                以鲜艳的配色方案为特色，融合芥末主题音效，打造出富有创意的游戏机制。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esprunki Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/esprunki-incredibox.png" alt="Esprunki Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Esprunki Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                融合西班牙风格音效与丰富文化元素，呈现独特的角色设计与游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Remastered -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/remastered.webp" alt="Sprunki Remastered"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Remastered
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                全面升级的游戏体验，包含增强的图形效果、提升的音质和优化的游戏玩法。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Rejoyed -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-rejoyed.png" alt="Sprunki Rejoyed"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Rejoyed
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                充满欢乐氛围的音乐游戏，搭配欢快音效，带来积极愉悦的游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Baby -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-baby.png" alt="Sprunki Baby"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Baby
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                专为小朋友设计的音乐游戏，结合可爱角色设计和儿童友好音效，打造简单有趣的游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incredibox Mustard -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/incredibox-mustard.png" alt="Incredibox Mustard"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Incredibox Mustard
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                经典芥末主题音乐游戏，配合原创音效组合，呈现引人入胜的视觉效果。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunked -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunked.png" alt="Sprunked"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunked
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                创新独特的游戏机制，结合自定义音效库，展现原创角色设计的魅力。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki With Fan Character -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-with-fan-character.png"
+                            alt="Sprunki With Fan Character" class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki With Fan Character
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                由社区共同创作的游戏内容，融合粉丝创作元素，展现创意角色设计。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Spunky Sprinkle -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/spunky-sprinkle.jpg" alt="Spunky Sprinkle"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Sprinkle
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                缤纷多彩的视觉盛宴，配合甜蜜主题音效，为玩家带来趣味十足的游戏元素。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunked 2 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunked-2.jpg" alt="Sprunked 2"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunked 2
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                全新升级的游戏体验，扩展丰富的音效库，呈现令人耳目一新的角色阵容。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Greencore -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-greencore.jpg" alt="Sprunki Greencore"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Greencore
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                以自然为主题的音乐体验，融合环保理念，呈现平和优美的视觉元素。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spunky Babies -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/spunky-babies.jpg" alt="Spunky Babies"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Babies
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                充满童趣的音乐游戏，可爱的宝宝角色配合趣味音效，打造适合全家享受的游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Phase 1 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-phase-1.png" alt="Sprunki Phase 1"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Phase 1
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                开创性的游戏玩法，搭配经典音效库，展现首批精心设计的游戏角色。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sprunki OC -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-oc.png" alt="Sprunki OC"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki OC
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                原创角色与自定义音轨的完美结合，打造独特的视觉风格与游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Dandy's World -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-dandys-world.png" alt="Sprunki Dandy's World"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Dandy's World
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                奇幻环境中的音乐冒险，时尚的角色设计搭配趣味音效元素，创造独特游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abgerny Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-abgerny.png" alt="Abgerny Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Abgerny Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                独特的角色风格与原创音景相结合，带来创意十足的游戏元素体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Phase 3 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-phase-3.jpg" alt="Sprunki Phase 3"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Phase 3
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                进阶版游戏玩法，增强的音效库配合独特的角色互动，带来全新游戏体验。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Game Moments Section -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/80 to-white/40">
+        <div class="max-w-6xl mx-auto mb-8">
+            <h2
+                class="text-3xl  md:text-4xl font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent text-left">
+                探索创作者的音乐世界
+            </h2>
+            <p class="text-gray-600 text-lg max-w-5xl text-left">在这里，每一个创作都是独特的音乐故事。来自全球玩家的精彩演绎，展现 Sprunki 无限的创意可能。</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/31adFN6Koqo?si=cTKeSdV_OZMHAock"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Z8gLf0MHyuE?si=RalPpoDr_GWFSI3o"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/s2bsspVgVdk?si=a7MdvudOx-0CRnfG"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="py-8 px-4 md:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- FAQ Header -->
+            <div class="text-center mb-8">
+                <h2
+                    class="text-3xl font-bold mb-4 bg-gradient-to-r from-fuchsia-500 to-pink-500 text-transparent bg-clip-text">
+                    常见问题
+                </h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    探索 Sprunki 游戏的精彩世界！我们收集了玩家最关心的问题，帮助您快速了解游戏玩法和特色功能。
+                </p>
+            </div>
+
+            <!-- FAQ Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- FAQ Card 1 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        游戏中有哪些角色可供选择？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        游戏中有多种角色，每个角色都有独特的声音和风格，玩家可以根据自己的喜好进行选择。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 2 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何创建音乐节拍？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        拖动底部的装饰物到角色上，每个装饰物代表不同的音效，通过组合来创造独特的音乐。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 3 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        游戏是否有时间限制？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        在某些模式下，关卡可能会有时间限制，玩家需要在规定时间内完成目标。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 4 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何解锁新内容？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        通过完成特定任务或组合装饰物，可以解锁新的角色外观和歌曲。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 5 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        我可以在移动设备上玩 Sprunki 吗？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        是的，Sprunki 支持在移动设备上游玩，用户可以从应用商店下载相关应用。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 6 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何提高我的分数？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        通过收集散布在关卡中的健康 Sprunkies 和击败被感染的 Sprunkies 来提高分数。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 7 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        游戏中有道具吗？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        是的，Sprunki 提供各种道具，帮助玩家更轻松地通过关卡并击败敌人。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 8 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何与朋友竞争？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        游戏提供排行榜和多人模式，玩家可以与朋友及全球其他玩家进行竞争。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 9 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Sprunki 游戏是否有成就系统？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        是的，游戏中包含可解锁的成就，为玩家提供额外挑战和重玩价值。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 10 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何录制我的音乐创作？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        使用游戏内的录制功能，可以捕捉并保存你的音乐作品，与社区分享。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 11 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Sprunki 的难度级别如何？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        游戏提供多种难度级别，以适应不同技能水平的玩家。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 12 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        我需要音乐经验才能玩这个游戏吗？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        不需要！Sprunki 设计为适合所有人，从新手到专业人士都能轻松上手。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 13 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何参与社区活动？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        玩家可以加入论坛、参与节拍创作挑战，并分享自己的作品以获得反馈。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 14 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        是否支持跨平台游玩？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        是的，Sprunki 支持跨平台游玩，玩家可以在不同设备上使用相同账户进行游戏。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 15 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如果游戏无法加载，我该怎么办？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        尝试刷新浏览器或检查网络连接，如果问题仍然存在，请确保设备满足最低系统要求。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 16 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Sprunki 是否定期更新内容？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        是的，开发团队定期发布新角色、声音和模式，以保持游戏的新鲜感和趣味性。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 17 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        我可以使用自己的音乐吗？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        玩家可以在个人项目中使用自己的创作，但商业用途需遵循相关许可条款。
+                    </p>
+                </div>
+
+                <!-- FAQ Card 18 -->
+                <div
+                    class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3
+                        class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        如何反馈游戏问题或建议？
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        玩家可以通过官方网站或社交媒体联系开发团队反馈问题或提出建议。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TikTok Embed Script -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <!-- Footer -->
+    <footer class="bg-white/80 py-12 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Footer Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                    <p class="text-sm text-gray-600">创造属于你的音乐世界，让创意自由绽放。</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">快速链接</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">游戏下载</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">新手教程</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">更新日志</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">常见问题</a></li>
+                    </ul>
+                </div>
+
+                <!-- Community -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">社区</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">玩家论坛</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">创作分享</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">活动资讯</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">反馈建议</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">关注我们</h4>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">X (Twitter)</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+                                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">YouTube</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                                <path d="m10 15 5-3-5-3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">Reddit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M12 8c-1.37.2-3 .7-4 2-1.5 2-1 5.5-1 8 0 1.5 1 3 3 3s3-1 3-3V8Z"/>
+                                <path d="M12 8c1.37.2 3 .7 4 2 1.5 2 1 5.5 1 8 0 1.5-1 3-3 3s-3-1-3-3V8Z"/>
+                                <path d="M9 11h6"/>
+                                <path d="M11 15h2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">Discord</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+                                <path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+                                <path d="M15.5 17c0 1 1.5 3 2 3 1.5 0 2.833-1.667 3.5-3 .667-1.667.5-5.833-1.5-11.5-1.457-1.015-3-1.34-4.5-1.5l-.972 1.923a11.913 11.913 0 0 0-4.053 0L9 4c-1.5.16-3.043.485-4.5 1.5-2 5.667-2.167 9.833-1.5 11.5.667 1.333 2 3 3.5 3 .5 0 2-2 2-3"/>
+                                <path d="M7 16.5c3.5 1 6.5 1 10 0"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <!-- Copyright -->
+                    <p class="text-sm text-gray-600"> 2024 Sprunki. All rights reserved.</p>
+                    
+                    <!-- Legal Links -->
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">隐私政策</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">服务条款</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">免责声明</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <section id="game-overlay" class="fixed inset-0 bg-black/80 z-[2000] hidden">
+        <div class="relative w-full h-full flex items-center justify-center">
+            <!-- Game Container -->
+            <div class="relative w-full max-w-7xl mx-4 bg-white rounded-lg" style="border: 5px solid #FF1493;">
+                <!-- Close Button -->
+                <button id="close-game" class="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                
+                <!-- Game Iframe -->
+                <iframe 
+                    id="iframehtml5" 
+                    class="game-iframe" 
+                    src="https://sprunki.org/sprunki-game-home.embed" 
+                    width="100%" 
+                    height="601px" 
+                    title="Sprunki Incredibox" 
+                    frameborder="0" 
+                    border="0" 
+                    scrolling="auto" 
+                    allowfullscreen="" 
+                    data-wg-content="true">
+                </iframe>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    // Add this to your existing script section
+    document.addEventListener('DOMContentLoaded', () => {
+        const heroButton = document.querySelector('#hero-play-button'); // Add an ID to your hero button
+        const gameOverlay = document.querySelector('#game-overlay');
+        const closeGameButton = document.querySelector('#close-game');
+
+        // Show game overlay
+        heroButton.addEventListener('click', () => {
+            gameOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Hide game overlay
+        closeGameButton.addEventListener('click', () => {
+            gameOverlay.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+    });
+</script>
+</html>

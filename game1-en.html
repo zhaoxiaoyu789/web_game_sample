@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprunki - Music Creation Game</title>
+    <meta name="description" content="Sprunki is a creative game that combines music and rhythm, allowing players to enjoy music creation through unique modules and level design.">
+    <meta name="keywords"
+        content="Sprunki, Incredibox, Fan-Made Mod, Music-Mixing, Sound Loops, Musical Compositions, Drag-and-drop Interface">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF1493',
+                        secondary: '#4169E1',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Poppins', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-r from-pink-100 via-white to-blue-100">
+    <section class="relative top-0 left-0 right-0 z-[1000] bg-white/50 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-fuchsia-500 transition-colors duration-200">Home</a>
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-fuchsia-500 transition-colors duration-200">Features</a>
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-fuchsia-500 transition-colors duration-200">Community</a>
+                    <a href="#" class="text-sm font-medium text-gray-700 hover:text-fuchsia-500 transition-colors duration-200">Download</a>
+                </nav>
+
+                <!-- Language Selector -->
+                <div class="relative" x-data="{ open: false }">
+                    <button @click="open = !open" @click.away="open = false" class="flex items-center space-x-2 px-4 py-2 rounded-full bg-white/80 shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600">
+                            <path d="m5 8 6 6"/>
+                            <path d="m4 14 6-6 2-3"/>
+                            <path d="M2 5h12"/>
+                            <path d="M7 2h1"/>
+                            <path d="m22 22-5-10-5 10"/>
+                            <path d="M14 18h6"/>
+                        </svg>
+                        <span class="text-sm text-gray-600">English</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 transform transition-transform duration-200" :class="{ 'rotate-180': open }">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div x-show="open" class="absolute right-0 mt-2 w-48 rounded-xl bg-white shadow-lg border border-gray-100 py-2 z-[1001]">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            English
+                        </a>
+                        <a href="game1.html" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            Simplified Chinese
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            日本語
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-600 hover:bg-gradient-to-r hover:from-fuchsia-50 hover:to-pink-50">
+                            한국어
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section -->
+    <section class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-6">
+                    <h1
+                        class="font-display text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                    <p class="text-xl md:text-lg text-gray-500 font-medium">
+                        Create your creative world with music and rhythm, make every melody a unique gaming experience
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">Explore electronic music to retro beats, let diverse sound effects inspire your creative inspiration</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">Unleash your creativity in creative levels, share your unique music works with global players</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">Graffiti art style and dynamic sound effects are perfectly combined, bringing a shocking visual and auditory experience</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                            </svg>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-600 leading-relaxed">Through intuitive drag-and-drop operations, everyone can easily create music</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-1">
+                        <a href="#" id="hero-play-button"
+                            class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Play Now
+                        </a>
+                    </div>
+                </div>
+                <!-- Right Video -->
+                <div class="relative aspect-video rounded-2xl overflow-hidden shadow-xl">
+                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 z-0"></div>
+                    <iframe class="absolute inset-[2px] w-[calc(100%-4px)] h-[calc(100%-4px)] rounded-2xl z-10"
+                        src="https://www.youtube.com/embed/5mpwEPR1ggg?si=oueqlPUqXqTZSF3y"
+                        title="Sprunki Gameplay Video" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="flex space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                <!-- Dynamic Music Experience -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-pink-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        Dynamic Music Experience
+                    </h3>
+                    <p class="text-sm text-gray-400">Diverse music tracks, from Hip-hop to electronic sound, feel the strong rhythm and beat</p>
+                </div>
+
+                <!-- Unique Characters -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-purple-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        Unique Characters
+                    </h3>
+                    <p class="text-sm text-gray-400">Unique character designs, such as Oren and Funbot, showcase rich personality charm</p>
+                </div>
+
+                <!-- Creative Visuals -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-blue-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        Creative Visuals
+                    </h3>
+                    <p class="text-sm text-gray-400">Vibrant colors and graffiti art style, bringing a shocking visual experience</p>
+                </div>
+
+                <!-- Customizable Levels -->
+                <div class="flex-none w-72 p-4 rounded-xl border-2 border-purple-500/30 bg-white/50 backdrop-blur-sm">
+                    <h3
+                        class="text-lg font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                        Customizable Levels
+                    </h3>
+                    <p class="text-sm text-gray-400">Create your own music levels, let creativity bloom freely</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- How to Play Section -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/90 to-white/60">
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="font-display text-3xl md:text-4xl font-bold mb-8 text-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                How to Play Sprunki Game？
+            </h2>
+
+            <!-- Video Container -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div
+                    class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                    <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                        <iframe class="w-full h-full"
+                            src="https://www.youtube.com/embed/5fzgKPCi0b4?si=cTKeSdV_OZMHAock"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructions Grid -->
+            <div class="grid md:grid-cols-3 gap-6 w-full mx-auto">
+                <!-- Start Your Musical Journey -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-pink-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-pink-400 via-pink-500 to-rose-500 text-white text-sm">1</span>
+                        <span
+                            class="bg-gradient-to-r from-pink-400 via-pink-500 to-rose-500 bg-clip-text text-transparent">Start Your Musical Journey</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            Click "Play Sprunki" to start the game
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            Choose your favorite mode (Classic, Disco Fever, Space Odyssey)
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-pink-500 mr-2">•</span>
+                            Create your first beat
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Creative Techniques -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-purple-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 text-white text-sm">2</span>
+                        <span
+                            class="bg-gradient-to-r from-purple-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">Creative Techniques</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Select and drag characters to the stage
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Try different combinations to find the perfect mix
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-purple-500 mr-2">•</span>
+                            Use the mixer to adjust volume and effects
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Explore More Possibilities -->
+                <div class="bg-white/50 backdrop-blur-sm rounded-xl p-4 border-2 border-blue-500/30">
+                    <h3 class="flex items-center gap-2 text-lg font-bold mb-3">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-500 text-white text-sm">3</span>
+                        <span
+                            class="bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-500 bg-clip-text text-transparent">Explore More Possibilities</span>
+                    </h3>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Unlock reward modes and hidden combinations
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Record and share your creations
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            Interact with the community to get inspiration
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Spunky Hot Games Section -->
+    <section class="py-8 pt-4 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/90 to-white/60">
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="font-display text-3xl  md:text-4xl font-bold h-12 mb-8 text-center bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                Spunky Hot Games Collection
+            </h2>
+
+            <!-- Game Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <!-- Game Card Template (Repeat for each game) -->
+                <!-- Sprunki Retake -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-retake.jpg" alt="Sprunki Retake"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Retake
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A innovative music game, combining reimagined gameplay with new sound effects and presenting a refreshing character design.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spunky Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki.webp" alt="Spunky Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A classic music creation experience, combining original sound effects with iconic characters, bringing unique gaming fun.
+                            </p>
+                        </div>
+                    </div>
+                </div><!-- Sprunki Infected -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-infected.png" alt="Sprunki Infected"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Infected
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A unique infection-themed gaming experience, combining dark atmosphere and unique sound effects, creating an unforgettable gaming world.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colorbox Mustard -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/colorbox-mustard.png" alt="Colorbox Mustard"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Colorbox Mustard
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A game featuring a vibrant color scheme, combining mustard-themed sound effects, creating a creative gameplay mechanism.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Esprunki Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/esprunki-incredibox.png" alt="Esprunki Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Esprunki Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A game combining Spanish-style sound effects with rich cultural elements, presenting unique character designs and gaming experiences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Remastered -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/remastered.webp" alt="Sprunki Remastered"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Remastered
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A fully upgraded gaming experience, including enhanced graphics, improved sound quality, and optimized gameplay.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Rejoyed -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-rejoyed.png" alt="Sprunki Rejoyed"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Rejoyed
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A joyful music game filled with cheerful sound effects, bringing positive and delightful gaming elements.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Baby -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-baby.png" alt="Sprunki Baby"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Baby
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A music game designed for kids, combining cute character designs with child-friendly sound effects, creating a simple and fun gaming experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incredibox Mustard -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/incredibox-mustard.png" alt="Incredibox Mustard"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Incredibox Mustard
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A classic mustard-themed music game, combining original sound effects, presenting an engaging visual effect.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunked -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunked.png" alt="Sprunked"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunked
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                An innovative gameplay mechanism, combining customizable sound libraries, showcasing original character designs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki With Fan Character -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-with-fan-character.png"
+                            alt="Sprunki With Fan Character" class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki With Fan Character
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A game created by the community, combining fan-created elements, showcasing creative character designs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Spunky Sprinkle -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/spunky-sprinkle.jpg" alt="Spunky Sprinkle"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Sprinkle
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A colorful visual feast, combining sweet-themed sound effects, bringing fun and playful gaming elements.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunked 2 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunked-2.jpg" alt="Sprunked 2"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunked 2
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A fully upgraded gaming experience, expanding rich sound libraries, presenting a refreshing character lineup.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Greencore -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-greencore.jpg" alt="Sprunki Greencore"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Greencore
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A nature-themed music experience, combining eco-friendly concepts, presenting a peaceful and beautiful visual element.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spunky Babies -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/spunky-babies.jpg" alt="Spunky Babies"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Spunky Babies
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A fun music game filled with cute baby characters, combining fun sound effects, creating a gaming experience suitable for the whole family.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Phase 1 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-phase-1.png" alt="Sprunki Phase 1"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Phase 1
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A pioneering gameplay, combining classic sound effects, showcasing the first batch of carefully designed game characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sprunki OC -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-oc.png" alt="Sprunki OC"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki OC
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A perfect combination of original characters and customizable soundtracks, creating a unique visual style and gaming experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Dandy's World -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-dandys-world.png" alt="Sprunki Dandy's World"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Dandy's World
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A fantasy environment music adventure, combining fashionable character designs with fun sound effects, creating a unique gaming experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abgerny Incredibox -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-abgerny.png" alt="Abgerny Incredibox"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Abgerny Incredibox
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                A unique character style and original soundscapes combined, bringing a creative gaming element experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sprunki Phase 3 -->
+                <div
+                    class="relative group overflow-hidden rounded-xl border-2 bg-gradient-to-r from-pink-500/30 via-purple-500/30 to-blue-500/30 p-[2px]">
+                    <div class="relative h-full w-full rounded-xl bg-white overflow-hidden">
+                        <img src="https://spunky.games/image/sprunki-phase-3.jpg" alt="Sprunki Phase 3"
+                            class="w-full h-48 object-cover">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-2 transform transition-all duration-300 bg-gradient-to-t from-pink-500/90 via-purple-500/90 to-transparent">
+                            <h3 class="text-base font-bold text-white truncate">
+                                Sprunki Phase 3
+                            </h3>
+                            <p
+                                class="text-sm text-gray-600 group-hover:text-white/90 mt-2 opacity-0 max-h-0 group-hover:max-h-24 group-hover:opacity-100 transition-all duration-300 overflow-hidden">
+                                An advanced gameplay, combining enhanced sound libraries with unique character interactions, bringing a new gaming experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Game Moments Section -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white/80 to-white/40">
+        <div class="max-w-6xl mx-auto mb-8">
+            <h2
+                class="font-display text-3xl  md:text-4xl font-bold mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent text-left">
+                Explore the Music World of Creators
+            </h2>
+            <p class="text-gray-600 text-lg max-w-5xl text-left">Here, every creation is a unique music story. Outstanding performances from global players, showcasing Sprunki's infinite creative possibilities.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/31adFN6Koqo?si=cTKeSdV_OZMHAock"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Z8gLf0MHyuE?si=RalPpoDr_GWFSI3o"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div
+                class="aspect-video rounded-xl overflow-hidden p-[5px] bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500">
+                <div class="w-full h-full bg-white rounded-lg overflow-hidden">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/s2bsspVgVdk?si=a7MdvudOx-0CRnfG"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="py-8 px-4 md:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- FAQ Header -->
+            <div class="text-center mb-8">
+                <h2
+                    class="font-display text-3xl font-bold mb-4 bg-gradient-to-r from-fuchsia-500 to-pink-500 text-transparent bg-clip-text">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">
+                    Here, we've collected the most common questions from players, helping you quickly understand the gameplay and special features.
+                </p>
+            </div>
+
+            <!-- FAQ Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- FAQ Card 1 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        What characters are available in the game?
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        The game features a diverse cast of musical characters, each with unique abilities and instruments. You can unlock new characters as you progress through the game.
+                    </p>
+                </div>
+
+                <!-- FAQ Card 2 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        How do I create music beats?
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Simply drag and drop sound elements onto the beat grid. Experiment with different combinations to create your unique rhythm!
+                    </p>
+                </div>
+
+                <!-- FAQ Card 3 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Is there a time limit in the game?
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        No, there's no time limit! Take your time to explore and create your perfect musical masterpiece.
+                    </p>
+                </div>
+
+                <!-- FAQ Card 4 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        How do I unlock new content?
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Complete challenges, create original music, and share with the community to earn points and unlock new content!
+                    </p>
+                </div>
+
+                <!-- FAQ Card 5 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Can I play Sprunki on mobile devices?
+                    </h3>
+                    <p
+                        class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Yes! Sprunki is available on mobile devices. Download it from your app store today!
+                    </p>
+                </div>
+                <!-- FAQ Card 6 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        How can I improve my score?
+                    </h3>
+                    <p class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Collect healthy Sprunkies and defeat infected ones throughout the levels to increase your score.
+                    </p>
+                </div>
+                
+                <!-- FAQ Card 7 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Are there power-ups in the game?
+                    </h3>
+                    <p class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Yes, Sprunki offers various power-ups to help players clear levels and defeat enemies more easily.
+                    </p>
+                </div>
+                
+                <!-- FAQ Card 8 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        How can I compete with friends?
+                    </h3>
+                    <p class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        The game features leaderboards and multiplayer modes where you can compete with friends and players worldwide.
+                    </p>
+                </div>
+                
+                <!-- FAQ Card 9 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Does Sprunki have an achievement system?
+                    </h3>
+                    <p class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Yes, the game includes unlockable achievements that provide additional challenges and replay value.
+                    </p>
+                </div>
+                
+                <!-- FAQ Card 10 -->
+                <div class="group relative bg-white/50 rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:border-fuchsia-500 hover:shadow-lg hover:shadow-fuchsia-500/20 overflow-hidden">
+                    <h3 class="text-[15px] font-medium text-gray-700 group-hover:text-fuchsia-500 transition-colors duration-300 mb-2">
+                        Does Sprunki receive regular content updates?
+                    </h3>
+                    <p class="text-[14px] leading-relaxed text-gray-600 opacity-0 max-h-0 transition-all duration-300 group-hover:opacity-100 group-hover:max-h-40">
+                        Yes, we regularly update the game with new content, features, and improvements to enhance your gaming experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- TikTok Embed Script -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <footer class="bg-white/80 py-12 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <!-- Footer Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+                        Sprunki
+                    </h1>
+                    <p class="text-sm text-gray-600">Create your own music world, let creativity bloom freely.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Download</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Tutorial</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Updates</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Community -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">Community</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Forum</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Share</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">News</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-fuchsia-500 transition-colors">Feedback</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="space-y-4">
+                    <h4 class="text-sm font-semibold text-gray-900">Follow Us</h4>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">X (Twitter)</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M4 4l11.733 16h4.267l-11.733 -16z"/>
+                                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">YouTube</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
+                                <path d="M7 16.5c3.5 1 6.5 1 10 0"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">Reddit</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M12 8c-1.37.2-3 .7-4 2-1.5 2-1 5.5-1 8 0 1.5 1 3 3 3s3-1 3-3V8Z"/>
+                                <path d="M12 8c1.37.2 3 .7 4 2 1.5 2 1 5.5 1 8 0 1.5-1 3-3 3s-3-1-3-3V8Z"/>
+                                <path d="M9 11h6"/>
+                                <path d="M11 15h2"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:border-fuchsia-200 hover:bg-gradient-to-br hover:from-fuchsia-50 hover:to-pink-50 transition-all duration-300 group">
+                            <span class="sr-only">Discord</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-fuchsia-500 transition-colors">
+                                <path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+                                <path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+                                <path d="M15.5 17c0 1 1.5 3 2 3 1.5 0 2.833-1.667 3.5-3 .667-1.667.5-5.833-1.5-11.5-1.457-1.015-3-1.34-4.5-1.5l-.972 1.923a11.913 11.913 0 0 0-4.053 0L9 4c-1.5.16-3.043.485-4.5 1.5-2 5.667-2.167 9.833-1.5 11.5.667 1.333 2 3 3.5 3 .5 0 2-2 2-3"/>
+                                <path d="M7 16.5c3.5 1 6.5 1 10 0"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <!-- Copyright -->
+                    <p class="text-sm text-gray-600"> 2024 Sprunki. All rights reserved.</p>
+                    
+                    <!-- Legal Links -->
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">Terms of Service</a>
+                        <a href="#" class="text-sm text-gray-600 hover:text-fuchsia-500 transition-colors">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <section id="game-overlay" class="fixed inset-0 bg-black/80 z-[2000] hidden">
+        <div class="relative w-full h-full flex items-center justify-center">
+            <!-- Game Container -->
+            <div class="relative w-full max-w-7xl mx-4 bg-white rounded-lg" style="border: 5px solid #FF1493;">
+                <!-- Close Button -->
+                <button id="close-game" class="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                
+                <!-- Game Iframe -->
+                <iframe 
+                    id="iframehtml5" 
+                    class="game-iframe" 
+                    src="https://sprunki.org/sprunki-game-home.embed" 
+                    width="100%" 
+                    height="601px" 
+                    title="Sprunki Incredibox" 
+                    frameborder="0" 
+                    border="0" 
+                    scrolling="auto" 
+                    allowfullscreen="" 
+                    data-wg-content="true">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add this to your existing script section
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroButton = document.querySelector('#hero-play-button'); // Add an ID to your hero button
+            const gameOverlay = document.querySelector('#game-overlay');
+            const closeGameButton = document.querySelector('#close-game');
+
+            // Show game overlay
+            heroButton.addEventListener('click', () => {
+                gameOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            });
+
+            // Hide game overlay
+            closeGameButton.addEventListener('click', () => {
+                gameOverlay.classList.add('hidden');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+        });
+    </script>
+</body>
+
+</html>
